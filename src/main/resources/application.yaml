@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: spring-ai-rag-tutorial
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vectordb
+    username: testuser
+    password: testpwd
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: mistral
+      embedding:
+        model: nomic-embed-text-large
+
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        table-name: vectordb
+
+server:
+  port: 9944
+
+logging:
+  level:
+    org.springframework.ai.vectorstore: DEBUG
