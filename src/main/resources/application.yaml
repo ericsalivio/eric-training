@@ -10,14 +10,6 @@ spring:
     hibernate:
       ddl-auto: update
 
-  ai:
-    ollama:
-      base-url: http://localhost:11434
-      chat:
-        model: mistral
-      embedding:
-        model: nomic-embed-text-large
-
     vectorstore:
       pgvector:
         initialize-schema: true

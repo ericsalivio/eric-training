@@ -6,7 +6,24 @@ services:
     ports:
       - "11434:11434"
     volumes:
-      - ollama_data:/root/.ollama
+      - ./ollama_models:/root/.ollama
+
+  ollama-init:
+    image: ollama/ollama
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    entrypoint: >
+      /bin/sh -c "
+      echo 'Waiting for Ollama...' &&
+      until ollama list >/dev/null 2>&1; do
+        sleep 2;
+      done;
+      echo 'Ollama is ready, pulling models...' &&
+      ollama pull mistral &&
+      ollama pull nomic-embed-text
+      "
 
   pgvector:
     container_name: pgvector
